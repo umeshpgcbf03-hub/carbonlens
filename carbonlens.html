@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carbon Footprint Awareness Platform</title>
+  <meta name="description"
+    content="Understand, track, and reduce your personal carbon footprint through everyday actions and personalized insights.">
+  <meta name="theme-color" content="#2D6A4F">
+  <link rel="manifest"
+    href='data:application/manifest+json,{"name":"CarbonLens","short_name":"CarbonLens","description":"Personal Carbon Footprint Awareness Platform","start_url":"./carbonlens.html","display":"standalone","background_color":"#F7F6F3","theme_color":"#2D6A4F"}'>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+  
+</style>
+<body>
+  <a class="skip-link" href="#dashboard">Skip to main content</a>
+
+  <!-- ========================================
+       NAVIGATION
+       ======================================== -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="https://carbonlenx.netlify.app" class="nav-brand" aria-label="Carbon Footprint Awareness Platform"
+        onclick="event.preventDefault()">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 22c1.25-.987 2.27-1.975 3.9-2.2 1.72-.225 3.302.574 4.5 1.7" />
+          <path d="M17 8c.5-2.5 2-4.5 4-6" />
+          <path d="M2 12c1.25-.987 2.27-1.975 3.9-2.2 1.72-.225 3.302.574 4.5 1.7" />
+          <path d="M17 16c.5-2.5 2-4.5 4-6" />
+          <path d="M2 18c1.25-.987 2.27-1.975 3.9-2.2 1.72-.225 3.302.574 4.5 1.7" />
+          <path d="M22 2L11 13" />
+          <path d="M14 11l4 4" />
+          <path d="M9 6l4 4" />
+        </svg>
+        CarbonLens
+      </a>
+      <div class="nav-tabs" role="tablist">
+        <button class="nav-tab active" role="tab" aria-selected="true" data-section="dashboard"
+          onclick="navigateTo('dashboard')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
+          </svg>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-tab" role="tab" aria-selected="false" data-section="log-activity"
+          onclick="navigateTo('log-activity')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          <span>Log</span>
+        </button>
+        <button class="nav-tab" role="tab" aria-selected="false" data-section="insights"
+          onclick="navigateTo('insights')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 20V10M12 20V4M6 20v-6" />
+          </svg>
+          <span>Insights</span>
+        </button>
+        <button class="nav-tab" role="tab" aria-selected="false" data-section="goals"
+          onclick="navigateTo('goals')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="12" r="6" />
+            <circle cx="12" cy="12" r="2" />
+          </svg>
+          <span>Goals</span>
+        </button>
+        <button class="nav-tab" role="tab" aria-selected="false" data-section="recommendations"
+          onclick="navigateTo('recommendations')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+          <span>Tips</span>
+        </button>
+        <button class="nav-tab" role="tab" aria-selected="false" data-section="education"
+          onclick="navigateTo('education')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+          </svg>
+          <span>Learn</span>
+        </button>
+        <button class="nav-tab" role="tab" aria-selected="false" data-section="reports"
+          onclick="navigateTo('reports')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+          </svg>
+          <span>Report</span>
+        </button>
+      </div>
+      <div class="nav-actions" aria-label="App controls">
+        <button class="btn btn-sm btn-secondary btn-icon" onclick="toggleDarkMode()"
+          aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.5 6.5 0 1 0 9.8 9.8z" />
+          </svg>
+        </button>
+        <button class="btn btn-sm btn-secondary btn-icon" onclick="openSettings()" aria-label="Open settings"
+          title="Settings">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.8 1.8 0 0 0 .36 1.98l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.8 1.8 0 0 0-1.98-.36 1.8 1.8 0 0 0-1.08 1.65V21a2 2 0 1 1-4 0v-.09A1.8 1.8 0 0 0 8.8 19.26a1.8 1.8 0 0 0-1.98.36l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.8 1.8 0 0 0 4.35 15a1.8 1.8 0 0 0-1.65-1.08H2.6a2 2 0 1 1 0-4h.09A1.8 1.8 0 0 0 4.35 8.8a1.8 1.8 0 0 0-.36-1.98l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.8 1.8 0 0 0 1.98.36A1.8 1.8 0 0 0 9.88 2.7V2.6a2 2 0 1 1 4 0v.09a1.8 1.8 0 0 0 1.08 1.65 1.8 1.8 0 0 0 1.98-.36l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.8 1.8 0 0 0-.36 1.98 1.8 1.8 0 0 0 1.65 1.08h.09a2 2 0 1 1 0 4h-.09A1.8 1.8 0 0 0 19.4 15z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========================================
+       MAIN CONTENT
+       ======================================== -->
+  <main class="main" role="main">
+
+    <!-- DASHBOARD SECTION -->
+    <section id="dashboard" class="section active" role="tabpanel" aria-label="Dashboard">
+      <div id="dashboard-content"></div>
+    </section>
+
+    <!-- LOG ACTIVITY SECTION -->
+    <section id="log-activity" class="section" role="tabpanel" aria-label="Log Activity">
+      <div id="log-content"></div>
+    </section>
+
+    <!-- INSIGHTS SECTION -->
+    <section id="insights" class="section" role="tabpanel" aria-label="Insights">
+      <div id="insights-content"></div>
+    </section>
+
+    <!-- RECOMMENDATIONS SECTION -->
+    <section id="recommendations" class="section" role="tabpanel" aria-label="Recommendations">
+      <div id="recommendations-content"></div>
+    </section>
+
+    <!-- GOALS SECTION -->
+    <section id="goals" class="section" role="tabpanel" aria-label="Goals">
+      <div id="goals-content"></div>
+    </section>
+
+    <!-- EDUCATION SECTION -->
+    <section id="education" class="section" role="tabpanel" aria-label="Education">
+      <div id="education-content"></div>
+    </section>
+
+    <!-- REPORTS SECTION -->
+    <section id="reports" class="section" role="tabpanel" aria-label="Reports">
+      <div id="reports-content"></div>
+    </section>
+
+  </main>
+
+  <!-- ========================================
+       FOOTER
+       ======================================== -->
+  <footer class="footer" role="contentinfo">
+    <p>CarbonLens &mdash; Personal Carbon Footprint Awareness Platform</p>
+    <p>All emission factors sourced from IPCC, DEFRA, EPA, and national energy agencies. Calculations are estimates
+      for personal awareness.</p>
+    <button class="btn btn-sm btn-secondary" onclick="toggleAlignment()" aria-expanded="false"
+      aria-controls="alignment-note" style="margin-top:0.75rem">How does this address the problem?</button>
+    <div id="alignment-note" class="footer-alignment" style="display:none" role="region"
+      aria-label="Problem alignment">
+      <strong>Problem Statement Alignment</strong><br>
+      <strong>Understand</strong> &mdash; The onboarding questionnaire establishes a personalized baseline, and the
+      Insights dashboard breaks down your emissions by category with visual charts and relatable
+      equivalents.<br><br>
+      <strong>Track</strong> &mdash; The Activity Logger lets you log daily transport, energy, food, and consumption
+      habits with minimal friction, including recurring habits. All data persists in localStorage.<br><br>
+      <strong>Reduce</strong> &mdash; The Recommendations Engine generates specific, ranked suggestions based on your
+      actual logged data &mdash; not generic tips. You can commit to recommendations and track follow-through.<br><br>
+      <strong>Personalized</strong> &mdash; Every insight, recommendation, and equivalent is calculated from your own
+      data. Your biggest contributor and best quick win are unique to your habits.<br><br>
+      <strong>Achievable</strong> &mdash; Goals &amp; gamification with streaks, badges, and milestones encourage sustained
+      behavior change. Bite-sized education builds genuine understanding without guilt.
+    </div>
+  </footer>
+
+  <!-- ========================================
+       ONBOARDING OVERLAY
+       ======================================== -->
+  <div id="onboarding-overlay" class="onboarding-overlay hidden" role="dialog" aria-modal="true"
+    aria-label="Carbon footprint onboarding">
+    <div class="onboarding-card">
+      <div class="step-indicator" id="step-indicator"></div>
+      <div id="onboarding-steps"></div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" class="toast-container" role="status" aria-live="polite"></div>
+
+  <!-- SELF-TEST PANEL -->
+  <div id="self-test-panel" class="self-test-panel" role="dialog" aria-label="Self-test results">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <h3 style="font-weight:700;font-size:1.1rem">Self-Test Results</h3>
+      <button class="btn btn-sm btn-secondary" onclick="toggleSelfTest()"
+        aria-label="Close self-test panel">Close</button>
+    </div>
+    <div id="self-test-results"></div>
+    <button class="btn btn-sm btn-primary" onclick="runSelfTests()" style="margin-top:0.75rem">Run Tests
+      Again</button>
+  </div>
+
+  <!-- DEBUG BUTTON -->
+  <button class="debug-btn" onclick="toggleSelfTest()" aria-label="Open self-test panel (Ctrl+Shift+T)"
+    title="Self-Test (Ctrl+Shift+T)">?</button>
+
+  <!-- CUSTOM ACTIVITY MODAL -->
+  <div id="custom-activity-modal" class="modal-overlay hidden" role="dialog" aria-modal="true"
+    aria-label="Log custom activity">
+    <div class="modal-card">
+      <h3 style="font-weight:700;margin-bottom:1rem" id="modal-title">Log Custom Activity</h3>
+      <div id="modal-form"></div>
+    </div>
+  </div>
+
+  <!-- SETTINGS MODAL -->
+  <div id="settings-modal" class="modal-overlay hidden" role="dialog" aria-modal="true"
+    aria-labelledby="settings-title">
+    <div class="modal-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+        <h3 style="font-weight:700" id="settings-title">Settings</h3>
+        <button class="btn btn-sm btn-secondary btn-icon" onclick="closeSettings()"
+          aria-label="Close settings">x</button>
+      </div>
+      <div class="settings-grid">
+        <div class="form-group">
+          <label for="setting-theme">Theme</label>
+          <select id="setting-theme" class="form-select" onchange="setThemePreference(this.value)">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="setting-units">Units</label>
+          <select id="setting-units" class="form-select" onchange="updatePreference('units', this.value)">
+            <option value="metric">Metric (kg, km)</option>
+            <option value="imperial">Imperial display preference</option>
+          </select>
+          <p class="form-hint" id="units-hint">Calculations remain metric for scientific consistency.</p>
+        </div>
+        <div class="form-group">
+          <label for="setting-grid">Electricity region</label>
+          <select id="setting-grid" class="form-select"
+            onchange="updatePreference('electricityRegion', this.value)">
+            <option value="india">India grid</option>
+            <option value="us">United States grid</option>
+            <option value="uk">United Kingdom grid</option>
+            <option value="global">Global average</option>
+          </select>
+          <p class="form-hint">Used for newly logged electricity entries.</p>
+        </div>
+        <div class="form-group">
+          <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer">
+            <input type="checkbox" id="setting-notifications"
+              onchange="updatePreference('notifications', this.checked)">
+            Notifications for milestones
+          </label>
+        </div>
+        <div class="settings-actions" aria-label="Data tools">
+          <button class="btn btn-sm btn-primary" onclick="exportActivitiesCSV()">Export CSV</button>
+          <button class="btn btn-sm btn-secondary" onclick="exportActivitiesJSON()">Export JSON</button>
+          <button class="btn btn-sm btn-secondary" onclick="backupData()">Backup Data</button>
+          <button class="btn btn-sm btn-secondary"
+            onclick="document.getElementById('import-csv-input').click()">Import CSV</button>
+          <input id="import-csv-input" class="sr-only" type="file" accept=".csv,text/csv"
+            onchange="importActivitiesCSV(event)">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="carbonlens.js"></script>
+</body>
+
+</html>
